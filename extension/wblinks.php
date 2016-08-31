@@ -1,14 +1,11 @@
 <?php
 
 /**
- * @package   	JCE
- * @copyright 	Copyright (c) 2009-2016 Ryan Demmer. All rights reserved.
+ * @package   	Webuddha JCE Extension wbLinks
+ * @copyright 	Copyright (c) 2016 Webuddha. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * JCE is free software. This version may have been modified pursuant
- * to the GNU General Public License, and as distributed it includes or
- * is derivative of works licensed under the GNU General Public License or
- * other free or open source software licenses.
  */
+
 defined('_WF_EXT') or die('RESTRICTED');
 
 class WFLinkBrowser_Wblinks {
@@ -17,32 +14,19 @@ class WFLinkBrowser_Wblinks {
   var $_adapters = array();
 
   /**
-   * Constructor activating the default information of the class
-   *
-   * @access	protected
+   * [__construct description]
+   * @param array $options [description]
    */
   public function __construct($options = array()) {
     jimport('joomla.filesystem.folder');
     jimport('joomla.filesystem.file');
-
     $path = dirname(__FILE__) . '/wblinks';
-
-    // Get all files
     $files = JFolder::files($path, '\.(php)$');
-
     if (!empty($files)) {
       foreach ($files as $file) {
         $name = basename($file, '.php');
-
-        // skip weblinks if it doesn't exist!
-        if ($name === "weblinks" && !is_file(JPATH_SITE . '/components/com_weblinks/helpers/route.php')) {
-          continue;
-        }
-
         require_once( $path . '/' . $file );
-
         $classname = 'Wblinks' . ucfirst($name);
-
         if (class_exists($classname)) {
           $this->_adapters[] = new $classname;
         }
@@ -50,17 +34,28 @@ class WFLinkBrowser_Wblinks {
     }
   }
 
+  /**
+   * [display description]
+   * @return [type] [description]
+   */
   public function display() {
-    // Load css
     $document = WFDocument::getInstance();
     $document->addStyleSheet(array('wblinks'), 'extensions/links/wblinks/css');
   }
 
+  /**
+   * [isEnabled description]
+   * @return boolean [description]
+   */
   public function isEnabled() {
     $wf = WFEditorPlugin::getInstance();
     return $wf->checkAccess($wf->getName() . '.links.wblinks.enable', 1);
   }
 
+  /**
+   * [getOption description]
+   * @return [type] [description]
+   */
   public function getOption() {
     foreach ($this->_adapters as $adapter) {
       $this->_option[] = $adapter->getOption();
@@ -68,15 +63,23 @@ class WFLinkBrowser_Wblinks {
     return $this->_option;
   }
 
+  /**
+   * [getList description]
+   * @return [type] [description]
+   */
   public function getList() {
     $list = '';
-
     foreach ($this->_adapters as $adapter) {
       $list .= $adapter->getList();
     }
     return $list;
   }
 
+  /**
+   * [getLinks description]
+   * @param  [type] $args [description]
+   * @return [type]       [description]
+   */
   public function getLinks($args) {
     foreach ($this->_adapters as $adapter) {
       if ($adapter->getOption() == $args->option) {
@@ -86,5 +89,3 @@ class WFLinkBrowser_Wblinks {
   }
 
 }
-
-?>
