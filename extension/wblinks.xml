@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <install version="2.0" type="extension" extension="wblinks" folder="links" method="upgrade" core="1">
   <name>WF_LINKS_WBLINKS_TITLE</name>
-  <version>2.5.19</version>
-  <creationDate>24 June 2016</creationDate>
-  <author>Ryan Demmer</author>
-  <authorEmail>info@joomlacontenteditor.net</authorEmail>
-  <authorUrl>http://www.joomlacontenteditor.net/</authorUrl>
-  <copyright>Copyright (C) 2006 - 2016 Ryan Demmer. All rights reserved</copyright>
+  <version>1.0.0</version>
+  <creationDate>31 August 2016</creationDate>
+  <author>Webuddha</author>
+  <authorEmail></authorEmail>
+  <authorUrl></authorUrl>
+  <copyright>Copyright (C) 2016 Webuddha. All rights reserved</copyright>
   <license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
   <description>WF_LINKS_WBLINKS_DESC</description>
   <files>
